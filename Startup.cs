@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Curso_Idiomas.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Curso_Idiomas
 {
@@ -23,6 +25,7 @@ namespace Curso_Idiomas
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CursoIdiomasDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConexaoPadrao")));
             services.AddControllersWithViews();
         }
 
