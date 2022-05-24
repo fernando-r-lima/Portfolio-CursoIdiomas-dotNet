@@ -15,7 +15,7 @@ namespace Curso_Idiomas.Models
 
         public Disciplina Disciplina { get; set; }
         public Professor Professor { get; set; }
-        public ICollection<Inscricao> Inscricoes { get; set; }
+        public List<Inscricao> Inscricoes { get; set; }
 
 
 

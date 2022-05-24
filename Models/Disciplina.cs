@@ -7,6 +7,6 @@ namespace Curso_Idiomas.Models
         public int DisciplinaId { get; set; }
         public string Nome { get; set; }
         //exemplo "Alemão A2.1"
-        public ICollection<Turma> Turmas { get; set; }
+        public List<Turma> Turmas { get; set; }
     }
 }
