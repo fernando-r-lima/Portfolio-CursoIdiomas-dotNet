@@ -21,6 +21,31 @@
         <dd>
             @Html.DisplayFor(model => model.Sobrenome)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Inscricoes)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Turma</th>
+                    <th>Horário</th>
+                    <th>Professor</th>
+                </tr>
+                @foreach (var inscricao in Model.Inscricoes)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => inscricao.Turma.Disciplina.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => inscricao.Turma.Horario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => inscricao.Turma.Professor.Nome)
+                        </td>
+                    </tr>
+                }
+            </table>
     </dl>
 </div>
 <div>

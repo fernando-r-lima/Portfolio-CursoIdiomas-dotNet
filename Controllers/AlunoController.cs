@@ -3,6 +3,7 @@ using Curso_Idiomas.Data;
 using System.Collections.Generic;
 using Curso_Idiomas.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -21,7 +22,11 @@ namespace Curso_Idiomas.Controllers
 
         public IActionResult Details(int id)
         {
-            Aluno aluno = _context.Aluno.FirstOrDefault(a => a.AlunoId == id);
+            Aluno aluno = _context.Aluno
+                                    .Include(a => a.Inscricoes).ThenInclude(i => i.Turma).ThenInclude(t => t.Disciplina)
+                                    .Include(a => a.Inscricoes).ThenInclude(i => i.Turma).ThenInclude(t => t.Professor)
+                                    .FirstOrDefault(a => a.AlunoId == id);
+
             return View(aluno);
         }
     }
