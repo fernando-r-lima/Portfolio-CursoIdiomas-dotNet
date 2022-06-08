@@ -2,6 +2,8 @@
 using Curso_Idiomas.Data;
 using System.Collections.Generic;
 using Curso_Idiomas.Models;
+using Curso_Idiomas.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -14,7 +16,10 @@ namespace Curso_Idiomas.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Turma> turmas = _context.Turma;
+            IEnumerable<Turma> turmas = _context.Turma
+                .Include(t => t.Professor)
+                .Include(t => t.Disciplina);
+                                
             return View(turmas);
         }
     }
