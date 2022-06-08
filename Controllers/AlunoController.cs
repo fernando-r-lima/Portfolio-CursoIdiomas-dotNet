@@ -2,6 +2,7 @@
 using Curso_Idiomas.Data;
 using System.Collections.Generic;
 using Curso_Idiomas.Models;
+using System.Linq;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -16,6 +17,12 @@ namespace Curso_Idiomas.Controllers
         {
             IEnumerable<Aluno> alunos = _context.Aluno;
             return View(alunos);
+        }
+
+        public IActionResult Details(int id)
+        {
+            Aluno aluno = _context.Aluno.FirstOrDefault(a => a.AlunoId == id);
+            return View(aluno);
         }
     }
 }

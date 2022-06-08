@@ -2,7 +2,6 @@
 using Curso_Idiomas.Data;
 using System.Collections.Generic;
 using Curso_Idiomas.Models;
-using Curso_Idiomas.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Curso_Idiomas.Controllers
