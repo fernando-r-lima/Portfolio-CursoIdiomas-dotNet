@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Aluno>
+﻿@model IEnumerable<Professor>
 
 @{
-    ViewData["Title"] = "Alunos";
+    ViewData["Title"] = "Professores";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -32,9 +32,9 @@
                     @Html.DisplayFor(modelItem => item.Sobrenome)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.AlunoId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.AlunoId">Turmas</a> |
-                    <a asp-action="Delete" asp-route-id="@item.AlunoId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ProfessorId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProfessorId">Turmas</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProfessorId">Delete</a>
                 </td>
             </tr>
         }
