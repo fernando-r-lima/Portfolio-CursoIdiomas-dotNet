@@ -1,0 +1,51 @@
+﻿@model Turma
+
+@{
+    ViewData["Title"] = @Model.Disciplina.Nome + " | " + @Model.Horario;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Professor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Professor.Nome)
+            @Html.DisplayFor(model => model.Professor.Sobrenome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Semestre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Semestre)
+        </dd>
+        <dt class="col-sm-2">
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Inscricoes)</th>
+                    <th></th>
+                </tr>
+                @foreach (var inscricao in Model.Inscricoes)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => inscricao.Aluno.Nome)
+                            @Html.DisplayFor(modelItem => inscricao.Aluno.Sobrenome)
+                        </td>
+                        <td>
+                            Ver aluno
+                        </td>
+                    </tr>
+                }
+            </table>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TurmaId" class="btn btn-default">Editar</a>
+    <a asp-action="Index">Voltar</a>
+</div>

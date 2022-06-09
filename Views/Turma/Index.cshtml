@@ -45,8 +45,8 @@
                     @Html.DisplayFor(modelItem => item.Semestre)
                 </td>
                 <td>
+                    <a asp-action="Details" asp-route-id="@item.TurmaId">Alunos: @item.Inscricoes.Count</a> |
                     <a asp-action="Edit" asp-route-id="@item.TurmaId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.TurmaId">Turmas</a> |
                     <a asp-action="Delete" asp-route-id="@item.TurmaId">Delete</a>
                 </td>
             </tr>

@@ -22,15 +22,16 @@
             @Html.DisplayFor(model => model.Sobrenome)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Inscricoes)
+            Turmas
         </dt>
         <dd>
             <table class="table">
                 <tr>
-                    <th>Turma</th>
+                    <th>Disciplina</th>
                     <th>Horário</th>
                     <th>Professor</th>
                     <th>Semestre</th>
+                    <th></th>
                 </tr>
                 @foreach (var inscricao in Model.Inscricoes)
                 {
@@ -48,6 +49,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => inscricao.Turma.Semestre)
                         </td>
+                        <td>Ver turma</td>
                     </tr>
                 }
             </table>
