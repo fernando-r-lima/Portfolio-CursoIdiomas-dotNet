@@ -16,7 +16,8 @@ namespace Curso_Idiomas.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Aluno> alunos = _context.Aluno;
+
+            IEnumerable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
             return View(alunos);
         }
 

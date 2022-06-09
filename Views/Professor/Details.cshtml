@@ -1,7 +1,7 @@
-﻿@model Aluno
+﻿@model Professor
 
 @{
-    ViewData["Title"] = "Detalhes do aluno";
+    ViewData["Title"] = "Detalhes do professor";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -22,37 +22,35 @@
             @Html.DisplayFor(model => model.Sobrenome)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Inscricoes)
+            @Html.DisplayNameFor(model => model.Turmas)
         </dt>
         <dd>
             <table class="table">
                 <tr>
-                    <th>Turma</th>
+                    <th>Disciplina</th>
                     <th>Horário</th>
-                    <th>Professor</th>
                     <th>Semestre</th>
+                    <th></th>
                 </tr>
-                @foreach (var inscricao in Model.Inscricoes)
+                @foreach (var turma in Model.Turmas)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => inscricao.Turma.Disciplina.Nome)
+                            @Html.DisplayFor(modelItem => turma.Disciplina.Nome)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => inscricao.Turma.Horario)
+                            @Html.DisplayFor(modelItem => turma.Horario)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => inscricao.Turma.Professor.Nome)
+                            @Html.DisplayFor(modelItem => turma.Semestre)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => inscricao.Turma.Semestre)
-                        </td>
+                        <td>Ver turma</td>
                     </tr>
                 }
             </table>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.AlunoId" class="btn btn-default">Editar</a>
+    <a asp-action="Edit" asp-route-id="@Model.ProfessorId" class="btn btn-default">Editar</a>
     <a asp-action="Index">Voltar</a>
 </div>
