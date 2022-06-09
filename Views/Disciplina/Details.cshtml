@@ -1,0 +1,45 @@
+﻿@model Disciplina
+
+@{
+    ViewData["Title"] = @Model.Nome;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Turmas)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Horário</th>
+                    <th>Professor</th>
+                    <th>Semestre</th>
+                    <th></th>
+                </tr>
+                @foreach (var turma in Model.Turmas)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Horario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Professor.Nome)
+                            @Html.DisplayFor(modelItem => turma.Professor.Sobrenome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Semestre)
+                        </td>
+                        <td>Ver turma</td>
+                    </tr>
+                }
+            </table>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.DisciplinaId" class="btn btn-default">Editar</a>
+    <a asp-action="Index">Voltar</a>
+</div>

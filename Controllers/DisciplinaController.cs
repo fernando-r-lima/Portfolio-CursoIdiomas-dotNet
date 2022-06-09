@@ -2,6 +2,8 @@
 using Curso_Idiomas.Data;
 using System.Collections.Generic;
 using Curso_Idiomas.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -14,8 +16,16 @@ namespace Curso_Idiomas.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Disciplina> disciplinas = _context.Disciplina;
+            IEnumerable<Disciplina> disciplinas = _context.Disciplina.Include(d => d.Turmas);
             return View(disciplinas);
+        }
+        public IActionResult Details(int id)
+        {
+            Disciplina disciplina = _context.Disciplina
+                                               .Include(d => d.Turmas)
+                                               .ThenInclude(t => t.Professor)
+                                               .FirstOrDefault(d => d.DisciplinaId == id);
+            return View(disciplina);
         }
     }
 }
