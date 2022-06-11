@@ -33,7 +33,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => turma.Semestre)
                         </td>
-                        <td>Ver turma</td>
+                        <td>
+                            <a asp-controller="Turma" asp-action="Details" asp-route-id="@turma.TurmaId">Ver turma</a>
+                        </td>
                     </tr>
                 }
             </table>
