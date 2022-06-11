@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Curso_Idiomas.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -14,10 +15,41 @@ namespace Curso_Idiomas.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(string ordem)
         {
-
             IEnumerable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
+
+            switch (ordem)
+            {
+                case "nome_desc":
+                    alunos = alunos.OrderByDescending(a => a.Nome).ThenBy(a => a.Sobrenome);
+                    break;
+                case "sobrenome":
+                    alunos = alunos.OrderBy(a => a.Sobrenome).ThenBy(a => a.Nome);
+                    break;
+                case "sobrenome_desc":
+                    alunos = alunos.OrderByDescending(a => a.Sobrenome).ThenBy(a => a.Nome);
+                    break;
+                default:
+                    alunos = alunos.OrderBy(a => a.Nome).ThenBy(a => a.Sobrenome);
+                    break;
+            }
+
+            /*
+            if (String.IsNullOrEmpty(ordem))
+                ViewData["BotaoNome"] = "nome_desc";
+            else
+                ViewData["BotaoNome"] = "";
+
+            if (ordem == "sobrenome")
+                ViewData["BotaoSobrenome"] = "sobrenome_desc";
+            else
+                ViewData["BotaoSobrenome"] = "sobrenome";
+            */
+
+            ViewData["BotaoNome"] = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
+            ViewData["BotaoSobrenome"] = ordem == "sobrenome" ? "sobrenome_desc" : "sobrenome";
+
             return View(alunos);
         }
 
