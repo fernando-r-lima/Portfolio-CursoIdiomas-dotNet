@@ -9,6 +9,17 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div>
+        <p>
+            Filtrar por nome ou sobrenome: <input type="text" name="filtro" value="@ViewData["FiltroAtual"]" />
+            <input type="submit" value="Buscar" /> |
+            <a asp-action="Index">Remover filtro</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>

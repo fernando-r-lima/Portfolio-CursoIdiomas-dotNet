@@ -15,9 +15,15 @@ namespace Curso_Idiomas.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(string ordem)
+        public IActionResult Index(string ordem, string filtro)
         {
-            IEnumerable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
+            //Codigo abaixo com IEnumerable so fazia busca com case-sensitive
+            //IEnumerable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
+            
+            IQueryable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
+
+            if (!String.IsNullOrEmpty(filtro))
+                alunos = alunos.Where(a => a.Nome.Contains(filtro) || a.Sobrenome.Contains(filtro));
 
             switch (ordem)
             {
@@ -49,6 +55,7 @@ namespace Curso_Idiomas.Controllers
 
             ViewData["BotaoNome"] = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
             ViewData["BotaoSobrenome"] = ordem == "sobrenome" ? "sobrenome_desc" : "sobrenome";
+            ViewData["FiltroAtual"] = filtro;
 
             return View(alunos);
         }
