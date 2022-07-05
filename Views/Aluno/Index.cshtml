@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Aluno>
+﻿@* @model IEnumerable<Aluno> *@
+
+@model Curso_Idiomas.Models.ViewModels.AlunoViewModel
 
 @{
     ViewData["Title"] = "Alunos";
@@ -13,8 +15,13 @@
 <form asp-action="Index" method="get">
     <div>
         <p>
-            Filtrar por nome ou sobrenome: <input type="text" name="filtro" value="@ViewData["FiltroAtual"]" />
+            Filtrar por
+            <select name="filtroEscolhido" asp-for="FiltroEscolhido" asp-items="Model.OpcoesFiltro"></select>:
+
+            <input type="text" name="conteudoFiltro" value="@Model.ConteudoFiltro" />
+
             <input type="submit" value="Buscar" /> |
+
             <a asp-action="Index">Remover filtro</a>
         </p>
     </div>
@@ -24,17 +31,17 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoNome"]"> @Html.DisplayNameFor(model => model.Nome)</a>
+                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoNome"]"> @Html.DisplayNameFor(model => model.Alunos.First().Nome)</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoSobrenome"]">@Html.DisplayNameFor(model => model.Sobrenome)</a>
+                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoSobrenome"]">@Html.DisplayNameFor(model => model.Alunos.First().Sobrenome)</a>
             </th>
             <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Alunos)
         {
             <tr>
                 <td>

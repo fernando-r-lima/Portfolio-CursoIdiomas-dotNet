@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Curso_Idiomas.Data;
-using System.Collections.Generic;
 using Curso_Idiomas.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Curso_Idiomas.Models.ViewModels;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -15,15 +15,28 @@ namespace Curso_Idiomas.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(string ordem, string filtro)
+        public IActionResult Index(string ordem, string conteudoFiltro, string filtroEscolhido)
         {
-            //Codigo abaixo com IEnumerable so fazia busca com case-sensitive
-            //IEnumerable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
-            
+
+            var viewModel = new AlunoViewModel();
+
+            //Codigo usando IEnumerable so fazia busca com case-sensitive
             IQueryable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
 
-            if (!String.IsNullOrEmpty(filtro))
-                alunos = alunos.Where(a => a.Nome.Contains(filtro) || a.Sobrenome.Contains(filtro));
+            if (!String.IsNullOrEmpty(conteudoFiltro))
+            {
+                switch (filtroEscolhido)
+                {
+                    case "nome":
+                        viewModel.FiltroEscolhido = "nome";
+                        alunos = alunos.Where(a => a.Nome.Contains(conteudoFiltro));
+                        break;
+                    case "sobrenome":
+                        viewModel.FiltroEscolhido = "sobrenome";
+                        alunos = alunos.Where(a => a.Sobrenome.Contains(conteudoFiltro));
+                        break;
+                }
+            }
 
             switch (ordem)
             {
@@ -41,23 +54,13 @@ namespace Curso_Idiomas.Controllers
                     break;
             }
 
-            /*
-            if (String.IsNullOrEmpty(ordem))
-                ViewData["BotaoNome"] = "nome_desc";
-            else
-                ViewData["BotaoNome"] = "";
-
-            if (ordem == "sobrenome")
-                ViewData["BotaoSobrenome"] = "sobrenome_desc";
-            else
-                ViewData["BotaoSobrenome"] = "sobrenome";
-            */
+            viewModel.Alunos = alunos;
+            viewModel.ConteudoFiltro = conteudoFiltro;
 
             ViewData["BotaoNome"] = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
             ViewData["BotaoSobrenome"] = ordem == "sobrenome" ? "sobrenome_desc" : "sobrenome";
-            ViewData["FiltroAtual"] = filtro;
-
-            return View(alunos);
+            
+            return View(viewModel);
         }
 
         public IActionResult Details(int id)
