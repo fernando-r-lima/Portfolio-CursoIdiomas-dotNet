@@ -31,10 +31,16 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoNome"]"> @Html.DisplayNameFor(model => model.Alunos.First().Nome)</a>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemNome"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Alunos.First().Nome)</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoSobrenome"]">@Html.DisplayNameFor(model => model.Alunos.First().Sobrenome)</a>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemSobrenome"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Alunos.First().Sobrenome)</a>
             </th>
             <th></th>
             <th></th>

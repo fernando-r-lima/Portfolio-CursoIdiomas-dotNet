@@ -7,10 +7,11 @@ namespace Curso_Idiomas.Models.ViewModels
     {
         public IEnumerable<Aluno> Alunos { get; set; }
 
+        public string OrdemNome { get; set; }
+        public string OrdemSobrenome { get; set; }
+
         public string ConteudoFiltro { get; set; }
-
         public string FiltroEscolhido { get; set; }
-
         public List<SelectListItem> OpcoesFiltro { get; } = new List<SelectListItem>
         {
             new SelectListItem { Value = "nome", Text = "Nome" },

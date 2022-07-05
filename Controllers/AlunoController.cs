@@ -55,11 +55,12 @@ namespace Curso_Idiomas.Controllers
             }
 
             viewModel.Alunos = alunos;
+
             viewModel.ConteudoFiltro = conteudoFiltro;
 
-            ViewData["BotaoNome"] = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
-            ViewData["BotaoSobrenome"] = ordem == "sobrenome" ? "sobrenome_desc" : "sobrenome";
-            
+            viewModel.OrdemNome = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
+            viewModel.OrdemSobrenome = ordem == "sobrenome" ? "sobrenome_desc" : "sobrenome";
+
             return View(viewModel);
         }
 
