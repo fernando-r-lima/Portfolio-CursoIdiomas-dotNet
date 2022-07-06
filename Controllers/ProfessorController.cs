@@ -5,6 +5,7 @@ using Curso_Idiomas.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System;
+using Curso_Idiomas.Models.ViewModels;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -16,9 +17,27 @@ namespace Curso_Idiomas.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string ordem)
+        public IActionResult Index(string ordem, string conteudoFiltro, string filtroEscolhido)
         {
-            IEnumerable<Professor> professores = _context.Professor.Include(p => p.Turmas);
+            var viewModel = new ProfessorViewModel();
+
+            IQueryable<Professor> professores = _context.Professor.Include(p => p.Turmas);
+
+            if (!String.IsNullOrEmpty(conteudoFiltro))
+            {
+                switch (filtroEscolhido)
+                {
+                    case "nome":
+                        viewModel.FiltroEscolhido = "nome";
+                        professores = professores.Where(p => p.Nome.Contains(conteudoFiltro));
+                        break;
+                    case "sobrenome":
+                        viewModel.FiltroEscolhido = "sobrenome";
+                        professores = professores.Where(p => p.Sobrenome.Contains(conteudoFiltro));
+                        break;
+                }
+            }
+
 
             switch (ordem)
             {
@@ -36,10 +55,14 @@ namespace Curso_Idiomas.Controllers
                     break;
             }
 
-            ViewData["BotaoNome"] = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
-            ViewData["BotaoSobrenome"] = ordem == "sobrenome" ? "sobrenome_desc" : "sobrenome";
+            viewModel.Professores = professores;
 
-            return View(professores);
+            viewModel.ConteudoFiltro = conteudoFiltro;
+
+            viewModel.OrdemNome = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
+            viewModel.OrdemSobrenome = ordem == "sobrenome" ? "sobrenome_desc" : "sobrenome";
+
+            return View(viewModel);
         }
 
         public IActionResult Details(int id)

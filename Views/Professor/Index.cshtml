@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Professor>
+﻿@model Curso_Idiomas.Models.ViewModels.ProfessorViewModel
 
 @{
     ViewData["Title"] = "Professores";
@@ -9,20 +9,44 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div>
+        <p>
+            Filtrar por
+            <select name="filtroEscolhido" asp-for="FiltroEscolhido" asp-items="Model.OpcoesFiltro"></select>:
+
+            <input type="text" name="conteudoFiltro" value="@Model.ConteudoFiltro" />
+
+            <input type="submit" value="Buscar"/>
+
+            <a asp-action="Index">Remover filtro</a>
+        </p>
+    </div>
+
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                    <a asp-action="Index" asp-route-ordem="@ViewData["BotaoNome"]"> @Html.DisplayNameFor(model => model.Nome)</a>
+                    <a asp-action="Index" 
+                    asp-route-ordem="@Model.OrdemNome"
+                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                    asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Nome)</a>
             </th>
             <th>
-                    <a asp-action="Index" asp-route-ordem="@ViewData["BotaoSobrenome"]"> @Html.DisplayNameFor(model => model.Sobrenome)</a>
+                    <a asp-action="Index" 
+                    asp-route-ordem="@Model.OrdemSobrenome"
+                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                    asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Sobrenome)</a>
             </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Professores)
         {
             <tr>
                 <td>
