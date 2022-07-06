@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Turma>
+﻿@model Curso_Idiomas.Models.ViewModels.TurmaViewModel
 
 @{
     ViewData["Title"] = "Turmas";
@@ -9,26 +9,51 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div>
+        <p>
+            Filtrar por
+            <select name="filtroEscolhido" asp-for="FiltroEscolhido" asp-items="Model.OpcoesFiltro"></select>:
+
+            <input type="text" name="conteudoFiltro" value="@Model.ConteudoFiltro" />
+
+            <input type="submit" value="Buscar" /> |
+
+            <a asp-action="Index">Remover filtro</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoDisciplina"]"> @Html.DisplayNameFor(model => model.Disciplina)</a>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemDisciplina"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Turmas.First().Disciplina)</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoHorario"]"> @Html.DisplayNameFor(model => model.Horario)</a>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemHorario"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Turmas.First().Horario)</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-ordem="@ViewData["BotaoProfessor"]"> @Html.DisplayNameFor(model => model.Professor)</a>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemProfessor"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Turmas.First().Professor)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Semestre)
+                @Html.DisplayNameFor(model => model.Turmas.First().Semestre)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Turmas)
         {
             <tr>
                 <td>

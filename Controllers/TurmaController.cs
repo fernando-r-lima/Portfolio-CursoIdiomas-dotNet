@@ -5,6 +5,7 @@ using Curso_Idiomas.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System;
+using Curso_Idiomas.Models.ViewModels;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -15,12 +16,34 @@ namespace Curso_Idiomas.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(string ordem)
+        public IActionResult Index(string ordem, string conteudoFiltro, string filtroEscolhido)
         {
-            IEnumerable<Turma> turmas = _context.Turma
+            var viewModel = new TurmaViewModel();
+
+            IQueryable<Turma> turmas = _context.Turma
                 .Include(t => t.Inscricoes)
                 .Include(t => t.Professor)
                 .Include(t => t.Disciplina);
+
+            if (!String.IsNullOrEmpty(conteudoFiltro))
+            {
+                switch (filtroEscolhido)
+                {
+                    case "disciplina":
+                        viewModel.FiltroEscolhido = "disciplina";
+                        turmas = turmas.Where(t => t.Disciplina.Nome.Contains(conteudoFiltro));
+                        break;
+                    case "horario":
+                        viewModel.FiltroEscolhido = "horario";
+                        turmas = turmas.Where(t => t.Horario.Contains(conteudoFiltro));
+                        break;
+                    case "professor":
+                        viewModel.FiltroEscolhido = "professor";
+                        turmas = turmas.Where(t => t.Professor.Nome.Contains(conteudoFiltro)
+                                                || t.Professor.Sobrenome.Contains(conteudoFiltro));
+                        break;
+                }
+            }
 
             switch (ordem)
             {
@@ -44,11 +67,15 @@ namespace Curso_Idiomas.Controllers
                     break;
             }
 
-            ViewData["BotaoDisciplina"] = String.IsNullOrEmpty(ordem) ? "disciplina_desc" : "";
-            ViewData["BotaoHorario"] = ordem == "horario" ? "horario_desc" : "horario";
-            ViewData["BotaoProfessor"] = ordem == "professor" ? "professor_desc" : "professor";
+            viewModel.Turmas = turmas;
 
-            return View(turmas);
+            viewModel.ConteudoFiltro = conteudoFiltro;
+
+            viewModel.OrdemDisciplina = String.IsNullOrEmpty(ordem) ? "disciplina_desc" : "";
+            viewModel.OrdemHorario = ordem == "horario" ? "horario_desc" : "horario";
+            viewModel.OrdemProfessor = ordem == "professor" ? "professor_desc" : "professor";
+
+            return View(viewModel);
         }
 
         public IActionResult Details(int id)
