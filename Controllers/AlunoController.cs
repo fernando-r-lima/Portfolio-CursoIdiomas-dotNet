@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Curso_Idiomas.Models.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -15,13 +17,15 @@ namespace Curso_Idiomas.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(string ordem, string conteudoFiltro, string filtroEscolhido)
+        public async Task<IActionResult> Index(string ordem, string conteudoFiltro, string filtroEscolhido)
         {
 
             var viewModel = new AlunoViewModel();
 
-            //Codigo usando IEnumerable so fazia busca com case-sensitive
             IQueryable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
+
+            //Codigo com IEnumerable nao faz busca com case-insensitive, precisa usar ToUpper()
+            //IEnumerable<Aluno> alunos = await _context.Aluno.Include(a => a.Inscricoes).ToListAsync();
 
             if (!String.IsNullOrEmpty(conteudoFiltro))
             {
@@ -29,6 +33,7 @@ namespace Curso_Idiomas.Controllers
                 {
                     case "nome":
                         viewModel.FiltroEscolhido = "nome";
+                        //alunos = alunos.Where(a => a.Nome.ToUpper().Contains(conteudoFiltro.ToUpper()));
                         alunos = alunos.Where(a => a.Nome.Contains(conteudoFiltro));
                         break;
                     case "sobrenome":
@@ -54,7 +59,7 @@ namespace Curso_Idiomas.Controllers
                     break;
             }
 
-            viewModel.Alunos = alunos;
+            viewModel.Alunos = await alunos.ToListAsync();
 
             viewModel.ConteudoFiltro = conteudoFiltro;
 
@@ -64,12 +69,12 @@ namespace Curso_Idiomas.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            Aluno aluno = _context.Aluno
+            Aluno aluno = await _context.Aluno
                                     .Include(a => a.Inscricoes).ThenInclude(i => i.Turma).ThenInclude(t => t.Disciplina)
                                     .Include(a => a.Inscricoes).ThenInclude(i => i.Turma).ThenInclude(t => t.Professor)
-                                    .FirstOrDefault(a => a.AlunoId == id);
+                                    .FirstOrDefaultAsync(a => a.AlunoId == id);
 
             return View(aluno);
         }

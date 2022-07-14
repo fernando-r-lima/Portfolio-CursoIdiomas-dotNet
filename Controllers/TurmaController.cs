@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System;
 using Curso_Idiomas.Models.ViewModels;
+using System.Threading.Tasks;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -16,7 +17,7 @@ namespace Curso_Idiomas.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(string ordem, string conteudoFiltro, string filtroEscolhido)
+        public async Task<IActionResult> Index(string ordem, string conteudoFiltro, string filtroEscolhido)
         {
             var viewModel = new TurmaViewModel();
 
@@ -67,7 +68,7 @@ namespace Curso_Idiomas.Controllers
                     break;
             }
 
-            viewModel.Turmas = turmas;
+            viewModel.Turmas = await turmas.ToListAsync();
 
             viewModel.ConteudoFiltro = conteudoFiltro;
 
@@ -78,14 +79,14 @@ namespace Curso_Idiomas.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            Turma turma = _context.Turma
+            Turma turma = await _context.Turma
                             .Include(t => t.Inscricoes)
                             .ThenInclude(i => i.Aluno)
                             .Include(t => t.Professor)
                             .Include(t => t.Disciplina)
-                            .FirstOrDefault(t => t.TurmaId == id);
+                            .FirstOrDefaultAsync(t => t.TurmaId == id);
             return View(turma);
         }
     }
