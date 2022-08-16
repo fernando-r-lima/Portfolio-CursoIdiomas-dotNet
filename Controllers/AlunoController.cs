@@ -78,5 +78,24 @@ namespace Curso_Idiomas.Controllers
 
             return View(aluno);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Nome,Sobrenome")] Aluno aluno)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(aluno);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(aluno);
+        }
+
     }
 }
