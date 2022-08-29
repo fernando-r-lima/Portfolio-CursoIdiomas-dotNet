@@ -3,14 +3,16 @@ using Curso_Idiomas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Curso_Idiomas.Migrations
 {
     [DbContext(typeof(CursoIdiomasDbContext))]
-    partial class CursoIdiomasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220829135749_ProfessorDisciplinaDataAnnotations")]
+    partial class ProfessorDisciplinaDataAnnotations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

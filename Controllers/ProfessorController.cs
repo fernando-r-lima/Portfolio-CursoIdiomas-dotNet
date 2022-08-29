@@ -74,5 +74,23 @@ namespace Curso_Idiomas.Controllers
                                     .FirstOrDefaultAsync(p => p.ProfessorId == id);
             return View(professor);
         }
+        
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Nome,Sobrenome")] Professor professor)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(professor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(professor);
+        }
     }
 }

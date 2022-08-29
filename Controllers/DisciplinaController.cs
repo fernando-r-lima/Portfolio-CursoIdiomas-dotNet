@@ -51,5 +51,23 @@ namespace Curso_Idiomas.Controllers
                                                .FirstOrDefaultAsync(d => d.DisciplinaId == id);
             return View(disciplina);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Nome")] Disciplina disciplina)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(disciplina);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(disciplina);
+        }
     }
 }
