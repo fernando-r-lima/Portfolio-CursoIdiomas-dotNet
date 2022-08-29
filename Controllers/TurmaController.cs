@@ -7,6 +7,7 @@ using System.Linq;
 using System;
 using Curso_Idiomas.Models.ViewModels;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Curso_Idiomas.Controllers
 {
@@ -88,6 +89,35 @@ namespace Curso_Idiomas.Controllers
                             .Include(t => t.Disciplina)
                             .FirstOrDefaultAsync(t => t.TurmaId == id);
             return View(turma);
+        }
+
+        public IActionResult Create()
+        {
+            PopularListasDeSelecao();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Horario,Semestre,DisciplinaId,ProfessorId")] Turma turma)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(turma);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            PopularListasDeSelecao(turma.DisciplinaId, turma.ProfessorId);
+            return View(turma);
+        }
+
+        private void PopularListasDeSelecao(object disciplinaSelecionada = null, object professorSelecionado = null)
+        {
+            var listaProfessores = _context.Professor.OrderBy(p => p.Nome).ThenBy(p => p.Sobrenome);
+            ViewBag.ListaProfessores = new SelectList(listaProfessores, "ProfessorId", "Nome", professorSelecionado);
+
+            var listaDisciplinas = _context.Disciplina.OrderBy(d => d.Nome);
+            ViewBag.ListaDisciplinas = new SelectList(listaDisciplinas, "DisciplinaId", "Nome", disciplinaSelecionada);
         }
     }
 }

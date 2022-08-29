@@ -1,0 +1,53 @@
+﻿@model Curso_Idiomas.Models.Turma
+
+@{
+    ViewData["Title"] = "Criar nova turma";
+}
+
+<h1>Criar nova turma</h1>
+
+<h4>Turma</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="Disciplina" class="control-label"></label>
+                <select asp-for="DisciplinaId" class="form-control" asp-items="ViewBag.ListaDisciplinas">
+                    <option value="">-- Selecione uma disciplina --</option>
+                </select>
+                <span asp-validation-for="DisciplinaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Professor" class="control-label"></label>
+                <select asp-for="ProfessorId" class="form-control" asp-items="ViewBag.ListaProfessores">
+                    <option value="">-- Selecione um professor --</option>
+                </select>
+                <span asp-validation-for="ProfessorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Horario" class="control-label"></label>
+                <input asp-for="Horario" class="form-control" />
+                <span asp-validation-for="Horario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Semestre" class="control-label"></label>
+                <input asp-for="Semestre" class="form-control" />
+                <span asp-validation-for="Semestre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>
+
+@*
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@
