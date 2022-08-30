@@ -14,6 +14,17 @@ namespace Curso_Idiomas.Models
         [Required(ErrorMessage = "Este campo é obrigatório")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "O tamanho permitido desse campo é de 2 a 50 caracteres")]
         public string Sobrenome { get; set; }
+
+        [Display(Name = "Nome Completo")]
+        public string NomeCompleto
+        {
+            get
+            {
+                return $"{Nome} {Sobrenome}";
+            }
+        }
+        
+
         public List<Turma> Turmas { get; set; }
     }
 }

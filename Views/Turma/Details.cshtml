@@ -13,8 +13,7 @@
             @Html.DisplayNameFor(model => model.Professor)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Professor.Nome)
-            @Html.DisplayFor(model => model.Professor.Sobrenome)
+            @Html.DisplayFor(model => model.Professor.NomeCompleto)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Semestre)
@@ -34,8 +33,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => inscricao.Aluno.Nome)
-                            @Html.DisplayFor(modelItem => inscricao.Aluno.Sobrenome)
+                            @Html.DisplayFor(modelItem => inscricao.Aluno.NomeCompleto)
                         </td>
                         <td>
                             <a asp-controller="Aluno" asp-action="Details" asp-route-id="@inscricao.Aluno.AlunoId">Ver aluno</a>

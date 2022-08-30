@@ -114,7 +114,7 @@ namespace Curso_Idiomas.Controllers
         private void PopularListasDeSelecao(object disciplinaSelecionada = null, object professorSelecionado = null)
         {
             var listaProfessores = _context.Professor.OrderBy(p => p.Nome).ThenBy(p => p.Sobrenome);
-            ViewBag.ListaProfessores = new SelectList(listaProfessores, "ProfessorId", "Nome", professorSelecionado);
+            ViewBag.ListaProfessores = new SelectList(listaProfessores, "ProfessorId", "NomeCompleto", professorSelecionado);
 
             var listaDisciplinas = _context.Disciplina.OrderBy(d => d.Nome);
             ViewBag.ListaDisciplinas = new SelectList(listaDisciplinas, "DisciplinaId", "Nome", disciplinaSelecionada);
