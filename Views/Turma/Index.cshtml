@@ -49,6 +49,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Turmas.First().Semestre)
             </th>
+            <th>
+                Alunos
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -63,13 +66,16 @@
                     @Html.DisplayFor(modelItem => item.Horario)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Professor.NomeCompleto)                    
+                    @Html.DisplayFor(modelItem => item.Professor.NomeCompleto)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Semestre)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.TurmaId">Alunos: @item.Inscricoes.Count</a> |
+                    @item.Inscricoes.Count
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TurmaId">Detalhes</a> |
                     <a asp-action="Edit" asp-route-id="@item.TurmaId">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.TurmaId">Delete</a>
                 </td>

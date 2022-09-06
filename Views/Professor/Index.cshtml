@@ -18,7 +18,7 @@
 
             <input type="text" name="conteudoFiltro" value="@Model.ConteudoFiltro" />
 
-            <input type="submit" value="Buscar"/> |
+            <input type="submit" value="Buscar" /> |
 
             <a asp-action="Index">Remover filtro</a>
         </p>
@@ -30,18 +30,20 @@
     <thead>
         <tr>
             <th>
-                    <a asp-action="Index" 
-                    asp-route-ordem="@Model.OrdemNome"
-                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                    asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Nome)</a>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemNome"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Nome)</a>
             </th>
             <th>
-                    <a asp-action="Index" 
-                    asp-route-ordem="@Model.OrdemSobrenome"
-                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                    asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Sobrenome)</a>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemSobrenome"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Sobrenome)</a>
             </th>
-            <th></th>
+            <th>
+                Turmas
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -56,7 +58,10 @@
                     @Html.DisplayFor(modelItem => item.Sobrenome)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ProfessorId">Turmas: @item.Turmas.Count</a> |
+                    @item.Turmas.Count
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProfessorId">Detalhes</a> |
                     <a asp-action="Edit" asp-route-id="@item.ProfessorId">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.ProfessorId">Delete</a>
                 </td>

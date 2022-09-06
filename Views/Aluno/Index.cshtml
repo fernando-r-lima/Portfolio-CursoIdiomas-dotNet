@@ -42,7 +42,7 @@
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
                    asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Alunos.First().Sobrenome)</a>
             </th>
-            <th></th>
+            <th>Turmas</th>
             <th></th>
         </tr>
     </thead>
@@ -57,7 +57,10 @@
                     @Html.DisplayFor(modelItem => item.Sobrenome)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.AlunoId">Turmas: @item.Inscricoes.Count</a> |
+                    @item.Inscricoes.Count
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AlunoId">Detalhes</a> |
                     <a asp-action="Edit" asp-route-id="@item.AlunoId">Editar</a> |
                     <a asp-action="Delete" asp-route-id="@item.AlunoId">Excluir</a>
                 </td>

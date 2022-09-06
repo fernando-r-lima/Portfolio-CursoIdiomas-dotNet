@@ -31,6 +31,9 @@
                 asp-route-ordem="@Model.OrdemNome"
                 asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Disciplinas.First().Nome)</a>
             </th>
+            <th>
+                Turmas
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,7 +45,10 @@
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.DisciplinaId">Turmas: @item.Turmas.Count</a> |
+                    @item.Turmas.Count
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.DisciplinaId">Detalhes</a> |
                     <a asp-action="Edit" asp-route-id="@item.DisciplinaId">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.DisciplinaId">Delete</a>
                 </td>
