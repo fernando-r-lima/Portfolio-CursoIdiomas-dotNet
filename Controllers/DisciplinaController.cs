@@ -69,5 +69,42 @@ namespace Curso_Idiomas.Controllers
             }
             return View(disciplina);
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var disciplina = await _context.Disciplina.FindAsync(id);
+
+            if (disciplina == null)
+            {
+                return NotFound();
+            }
+
+            return View(disciplina);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var disciplinaAtualizando = await _context.Disciplina.FirstOrDefaultAsync(d => d.DisciplinaId == id);
+
+            if (await TryUpdateModelAsync<Disciplina>(disciplinaAtualizando, "", d => d.Nome))
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(disciplinaAtualizando);
+        }
     }
 }

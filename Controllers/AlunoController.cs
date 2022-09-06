@@ -97,5 +97,42 @@ namespace Curso_Idiomas.Controllers
             return View(aluno);
         }
 
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var aluno = await _context.Aluno.FindAsync(id);
+
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+
+            return View(aluno);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var alunoAtualizando = await _context.Aluno.FirstOrDefaultAsync(a => a.AlunoId == id);
+
+            if (await TryUpdateModelAsync<Aluno>(alunoAtualizando, "", a => a.Nome, a => a.Sobrenome))
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(alunoAtualizando);
+        }
+
     }
 }

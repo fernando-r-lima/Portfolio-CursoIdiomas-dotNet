@@ -92,5 +92,42 @@ namespace Curso_Idiomas.Controllers
             }
             return View(professor);
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var professor = await _context.Professor.FindAsync(id);
+
+            if (professor == null)
+            {
+                return NotFound();
+            }
+
+            return View(professor);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var professorAtualizando = await _context.Professor.FirstOrDefaultAsync(a => a.ProfessorId == id);
+
+            if (await TryUpdateModelAsync<Professor>(professorAtualizando, "", p => p.Nome, p => p.Sobrenome))
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(professorAtualizando);
+        }
     }
 }
