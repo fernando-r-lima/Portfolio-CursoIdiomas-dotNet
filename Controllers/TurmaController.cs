@@ -111,6 +111,46 @@ namespace Curso_Idiomas.Controllers
             return View(turma);
         }
 
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var turma = await _context.Turma.Include(t => t.Disciplina).FirstOrDefaultAsync(t => t.TurmaId == id);
+
+            if (turma == null)
+            {
+                return NotFound();
+            }
+
+            PopularListasDeSelecao(turma.DisciplinaId, turma.ProfessorId);
+            return View(turma);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var turmaAtualizando = await _context.Turma.FirstOrDefaultAsync(t => t.TurmaId == id);
+
+            if (await TryUpdateModelAsync<Turma>(
+                turmaAtualizando, "", t => t.Horario, t => t.Semestre, t => t.DisciplinaId, t => t.ProfessorId))
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            PopularListasDeSelecao(turmaAtualizando.DisciplinaId, turmaAtualizando.ProfessorId);
+            return View(turmaAtualizando);
+        }
+
         private void PopularListasDeSelecao(object disciplinaSelecionada = null, object professorSelecionado = null)
         {
             var listaProfessores = _context.Professor.OrderBy(p => p.Nome).ThenBy(p => p.Sobrenome);
