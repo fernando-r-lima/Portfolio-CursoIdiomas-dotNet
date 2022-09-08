@@ -106,5 +106,40 @@ namespace Curso_Idiomas.Controllers
 
             return View(disciplinaAtualizando);
         }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var disciplina = await _context.Disciplina
+                                    .Include(d => d.Turmas).ThenInclude(t => t.Professor)
+                                    .FirstOrDefaultAsync(d => d.DisciplinaId == id);
+
+            if (disciplina == null)
+            {
+                return NotFound();
+            }
+
+            return View(disciplina);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var disciplina = await _context.Disciplina.FindAsync(id);
+
+            if (disciplina == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            _context.Disciplina.Remove(disciplina);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

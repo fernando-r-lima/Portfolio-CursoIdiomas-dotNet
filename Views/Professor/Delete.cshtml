@@ -1,0 +1,60 @@
+﻿@model Curso_Idiomas.Models.Professor
+
+@{
+    ViewData["Title"] = "Excluir professor";
+}
+
+<h1>Excluir</h1>
+<h3>Tem certeza que deseja excluir esse professor?</h3>
+<div>
+    <hr />
+    <h4>Professor</h4>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sobrenome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sobrenome)
+        </dd>
+        <dt class="col-sm-2">
+            Turmas
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Disciplina</th>
+                    <th>Horário</th>
+                    <th>Semestre</th>
+                    <th></th>
+                </tr>
+                @foreach (var turma in Model.Turmas)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Disciplina.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Horario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Semestre)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProfessorId" />
+        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <a asp-action="Index">Voltar</a>
+    </form>
+</div>

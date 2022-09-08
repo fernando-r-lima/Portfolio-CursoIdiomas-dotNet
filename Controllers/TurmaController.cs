@@ -159,5 +159,42 @@ namespace Curso_Idiomas.Controllers
             var listaDisciplinas = _context.Disciplina.OrderBy(d => d.Nome);
             ViewBag.ListaDisciplinas = new SelectList(listaDisciplinas, "DisciplinaId", "Nome", disciplinaSelecionada);
         }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var turma = await _context.Turma
+                                    .Include(t => t.Professor)
+                                    .Include(t => t.Disciplina)
+                                    .Include(t => t.Inscricoes).ThenInclude(i => i.Aluno)
+                                    .FirstOrDefaultAsync(a => a.TurmaId == id);
+
+            if (turma == null)
+            {
+                return NotFound();
+            }
+
+            return View(turma);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var turma = await _context.Turma.FindAsync(id);
+
+            if (turma == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            _context.Turma.Remove(turma);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
