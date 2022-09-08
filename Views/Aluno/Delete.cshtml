@@ -1,24 +1,26 @@
-﻿@model Aluno
+﻿@model Curso_Idiomas.Models.Aluno
 
 @{
-    ViewData["Title"] = "Detalhes do aluno";
+    ViewData["Title"] = "Excluir aluno";
 }
 
-<h2>@ViewData["Title"]</h2>
-
+<h1>Excluir</h1>
+<h3>Tem certeza que deseja excluir esse aluno?</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <h4>Aluno</h4>
+
+    <dl class="row">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Sobrenome)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Sobrenome)
         </dd>
         <dt class="col-sm-2">
@@ -56,8 +58,10 @@
             </table>
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.AlunoId" class="btn btn-default">Editar</a>
-    <a asp-action="Index">Voltar</a>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="AlunoId" />
+        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <a asp-action="Index">Voltar</a>
+    </form>
 </div>
