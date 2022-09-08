@@ -22,7 +22,7 @@ namespace Curso_Idiomas.Controllers
 
             var viewModel = new AlunoViewModel();
 
-            IQueryable<Aluno> alunos = _context.Aluno.Include(a => a.Inscricoes);
+            IQueryable<Aluno> alunos = _context.Alunos.Include(a => a.Inscricoes);
 
             //Codigo com IEnumerable nao faz busca com case-insensitive, precisa usar ToUpper()
             //IEnumerable<Aluno> alunos = await _context.Aluno.Include(a => a.Inscricoes).ToListAsync();
@@ -71,7 +71,7 @@ namespace Curso_Idiomas.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            Aluno aluno = await _context.Aluno
+            Aluno aluno = await _context.Alunos
                                     .Include(a => a.Inscricoes).ThenInclude(i => i.Turma).ThenInclude(t => t.Disciplina)
                                     .Include(a => a.Inscricoes).ThenInclude(i => i.Turma).ThenInclude(t => t.Professor)
                                     .FirstOrDefaultAsync(a => a.AlunoId == id);
@@ -104,7 +104,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var aluno = await _context.Aluno.FindAsync(id);
+            var aluno = await _context.Alunos.FindAsync(id);
 
             if (aluno == null)
             {
@@ -123,7 +123,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var alunoAtualizando = await _context.Aluno.FirstOrDefaultAsync(a => a.AlunoId == id);
+            var alunoAtualizando = await _context.Alunos.FirstOrDefaultAsync(a => a.AlunoId == id);
 
             if (await TryUpdateModelAsync<Aluno>(alunoAtualizando, "", a => a.Nome, a => a.Sobrenome))
             {
@@ -143,7 +143,7 @@ namespace Curso_Idiomas.Controllers
 
             //var aluno = await _context.Aluno.FirstOrDefaultAsync(a => a.AlunoId == id);
 
-            var aluno = await _context.Aluno
+            var aluno = await _context.Alunos
                                     .Include(a => a.Inscricoes).ThenInclude(i => i.Turma).ThenInclude(t => t.Disciplina)
                                     .Include(a => a.Inscricoes).ThenInclude(i => i.Turma).ThenInclude(t => t.Professor)
                                     .FirstOrDefaultAsync(a => a.AlunoId == id);
@@ -160,14 +160,14 @@ namespace Curso_Idiomas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var aluno = await _context.Aluno.FindAsync(id);
+            var aluno = await _context.Alunos.FindAsync(id);
 
             if (aluno == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            _context.Aluno.Remove(aluno);
+            _context.Alunos.Remove(aluno);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

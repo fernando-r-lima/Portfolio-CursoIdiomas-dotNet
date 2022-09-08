@@ -9,13 +9,20 @@ namespace Curso_Idiomas.Data
         {
         }
 
-        public DbSet<Aluno> Aluno { get; set; }
-        public DbSet<Turma> Turma { get; set; }
-        public DbSet<Inscricao> Inscricao { get; set; }
-        public DbSet<Professor> Professor { get; set; }
-        public DbSet<Disciplina> Disciplina { get; set; }
+        public DbSet<Aluno> Alunos { get; set; }
+        public DbSet<Turma> Turmas { get; set; }
+        public DbSet<Inscricao> Inscricoes { get; set; }
+        public DbSet<Professor> Professores { get; set; }
+        public DbSet<Disciplina> Disciplinas { get; set; }
 
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Aluno>().ToTable("Aluno");
+            modelBuilder.Entity<Turma>().ToTable("Turma");
+            modelBuilder.Entity<Inscricao>().ToTable("Inscricao");
+            modelBuilder.Entity<Professor>().ToTable("Professor");
+            modelBuilder.Entity<Disciplina>().ToTable("Disciplina");
+        }
 
     }
 }

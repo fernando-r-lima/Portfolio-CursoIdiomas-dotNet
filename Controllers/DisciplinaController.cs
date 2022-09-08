@@ -20,7 +20,7 @@ namespace Curso_Idiomas.Controllers
         {
             var viewModel = new DisciplinaViewModel();
 
-            IQueryable<Disciplina> disciplinas = _context.Disciplina.Include(d => d.Turmas);
+            IQueryable<Disciplina> disciplinas = _context.Disciplinas.Include(d => d.Turmas);
 
             if (!String.IsNullOrEmpty(conteudoFiltro))
                 disciplinas = disciplinas.Where(a => a.Nome.Contains(conteudoFiltro));
@@ -45,7 +45,7 @@ namespace Curso_Idiomas.Controllers
         }
         public async Task<IActionResult> Details(int id)
         {
-            Disciplina disciplina = await _context.Disciplina
+            Disciplina disciplina = await _context.Disciplinas
                                                .Include(d => d.Turmas)
                                                .ThenInclude(t => t.Professor)
                                                .FirstOrDefaultAsync(d => d.DisciplinaId == id);
@@ -77,7 +77,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var disciplina = await _context.Disciplina.FindAsync(id);
+            var disciplina = await _context.Disciplinas.FindAsync(id);
 
             if (disciplina == null)
             {
@@ -96,7 +96,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var disciplinaAtualizando = await _context.Disciplina.FirstOrDefaultAsync(d => d.DisciplinaId == id);
+            var disciplinaAtualizando = await _context.Disciplinas.FirstOrDefaultAsync(d => d.DisciplinaId == id);
 
             if (await TryUpdateModelAsync<Disciplina>(disciplinaAtualizando, "", d => d.Nome))
             {
@@ -114,7 +114,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var disciplina = await _context.Disciplina
+            var disciplina = await _context.Disciplinas
                                     .Include(d => d.Turmas).ThenInclude(t => t.Professor)
                                     .FirstOrDefaultAsync(d => d.DisciplinaId == id);
 
@@ -130,14 +130,14 @@ namespace Curso_Idiomas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var disciplina = await _context.Disciplina.FindAsync(id);
+            var disciplina = await _context.Disciplinas.FindAsync(id);
 
             if (disciplina == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            _context.Disciplina.Remove(disciplina);
+            _context.Disciplinas.Remove(disciplina);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

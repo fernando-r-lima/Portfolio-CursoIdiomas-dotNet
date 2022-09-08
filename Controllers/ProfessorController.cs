@@ -22,7 +22,7 @@ namespace Curso_Idiomas.Controllers
         {
             var viewModel = new ProfessorViewModel();
 
-            IQueryable<Professor> professores = _context.Professor.Include(p => p.Turmas);
+            IQueryable<Professor> professores = _context.Professores.Include(p => p.Turmas);
 
             if (!String.IsNullOrEmpty(conteudoFiltro))
             {
@@ -68,7 +68,7 @@ namespace Curso_Idiomas.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            Professor professor = await _context.Professor
+            Professor professor = await _context.Professores
                                     .Include(p => p.Turmas)
                                     .ThenInclude(t => t.Disciplina)
                                     .FirstOrDefaultAsync(p => p.ProfessorId == id);
@@ -100,7 +100,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var professor = await _context.Professor.FindAsync(id);
+            var professor = await _context.Professores.FindAsync(id);
 
             if (professor == null)
             {
@@ -119,7 +119,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var professorAtualizando = await _context.Professor.FirstOrDefaultAsync(a => a.ProfessorId == id);
+            var professorAtualizando = await _context.Professores.FirstOrDefaultAsync(a => a.ProfessorId == id);
 
             if (await TryUpdateModelAsync<Professor>(professorAtualizando, "", p => p.Nome, p => p.Sobrenome))
             {
@@ -137,7 +137,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var professor = await _context.Professor
+            var professor = await _context.Professores
                                     .Include(p => p.Turmas).ThenInclude(t => t.Disciplina)
                                     .FirstOrDefaultAsync(p => p.ProfessorId == id);
 
@@ -153,14 +153,14 @@ namespace Curso_Idiomas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var professor = await _context.Professor.FindAsync(id);
+            var professor = await _context.Professores.FindAsync(id);
 
             if (professor == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            _context.Professor.Remove(professor);
+            _context.Professores.Remove(professor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -22,7 +22,7 @@ namespace Curso_Idiomas.Controllers
         {
             var viewModel = new TurmaViewModel();
 
-            IQueryable<Turma> turmas = _context.Turma
+            IQueryable<Turma> turmas = _context.Turmas
                 .Include(t => t.Inscricoes)
                 .Include(t => t.Professor)
                 .Include(t => t.Disciplina);
@@ -82,7 +82,7 @@ namespace Curso_Idiomas.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            Turma turma = await _context.Turma
+            Turma turma = await _context.Turmas
                             .Include(t => t.Inscricoes)
                             .ThenInclude(i => i.Aluno)
                             .Include(t => t.Professor)
@@ -118,7 +118,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var turma = await _context.Turma.Include(t => t.Disciplina).FirstOrDefaultAsync(t => t.TurmaId == id);
+            var turma = await _context.Turmas.Include(t => t.Disciplina).FirstOrDefaultAsync(t => t.TurmaId == id);
 
             if (turma == null)
             {
@@ -138,7 +138,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var turmaAtualizando = await _context.Turma.FirstOrDefaultAsync(t => t.TurmaId == id);
+            var turmaAtualizando = await _context.Turmas.FirstOrDefaultAsync(t => t.TurmaId == id);
 
             if (await TryUpdateModelAsync<Turma>(
                 turmaAtualizando, "", t => t.Horario, t => t.Semestre, t => t.DisciplinaId, t => t.ProfessorId))
@@ -153,10 +153,10 @@ namespace Curso_Idiomas.Controllers
 
         private void PopularListasDeSelecao(object disciplinaSelecionada = null, object professorSelecionado = null)
         {
-            var listaProfessores = _context.Professor.OrderBy(p => p.Nome).ThenBy(p => p.Sobrenome);
+            var listaProfessores = _context.Professores.OrderBy(p => p.Nome).ThenBy(p => p.Sobrenome);
             ViewBag.ListaProfessores = new SelectList(listaProfessores, "ProfessorId", "NomeCompleto", professorSelecionado);
 
-            var listaDisciplinas = _context.Disciplina.OrderBy(d => d.Nome);
+            var listaDisciplinas = _context.Disciplinas.OrderBy(d => d.Nome);
             ViewBag.ListaDisciplinas = new SelectList(listaDisciplinas, "DisciplinaId", "Nome", disciplinaSelecionada);
         }
 
@@ -167,7 +167,7 @@ namespace Curso_Idiomas.Controllers
                 return NotFound();
             }
 
-            var turma = await _context.Turma
+            var turma = await _context.Turmas
                                     .Include(t => t.Professor)
                                     .Include(t => t.Disciplina)
                                     .Include(t => t.Inscricoes).ThenInclude(i => i.Aluno)
@@ -185,14 +185,14 @@ namespace Curso_Idiomas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var turma = await _context.Turma.FindAsync(id);
+            var turma = await _context.Turmas.FindAsync(id);
 
             if (turma == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            _context.Turma.Remove(turma);
+            _context.Turmas.Remove(turma);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
