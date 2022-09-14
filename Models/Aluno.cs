@@ -21,7 +21,7 @@ namespace Curso_Idiomas.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Este campo é obrigatório")]
+        //ErrorMessage nao funciona    [Required(ErrorMessage = "Este campo é obrigatório")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Matrícula")]
