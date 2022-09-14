@@ -31,6 +31,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Alunos.First().AlunoId)
+            </th>
+            <th>
                 <a asp-action="Index"
                    asp-route-ordem="@Model.OrdemNome"
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
@@ -42,6 +45,12 @@
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
                    asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Alunos.First().Sobrenome)</a>
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alunos.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alunos.First().DataMatricula)
+            </th>
             <th>Turmas</th>
             <th></th>
         </tr>
@@ -51,10 +60,19 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.AlunoId)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Sobrenome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataMatricula)
                 </td>
                 <td>
                     @item.Inscricoes.Count

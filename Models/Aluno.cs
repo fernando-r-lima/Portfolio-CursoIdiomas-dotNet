@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Curso_Idiomas.Models
 {
     public class Aluno
     {
+        [Display(Name = "Matrícula")]
         public int AlunoId { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
@@ -14,6 +16,16 @@ namespace Curso_Idiomas.Models
         [Required(ErrorMessage = "Este campo é obrigatório")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "O tamanho permitido desse campo é de 2 a 50 caracteres")]
         public string Sobrenome { get; set; }
+
+        [EmailAddress(ErrorMessage = "Entre um email válido")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Data de Matrícula")]
+        public DateTime DataMatricula { get; set; }
 
         [Display(Name = "Nome Completo")]
         public string NomeCompleto
