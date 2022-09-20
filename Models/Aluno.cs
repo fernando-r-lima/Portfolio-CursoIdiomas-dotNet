@@ -17,7 +17,7 @@ namespace Curso_Idiomas.Models
         [StringLength(50, MinimumLength = 2, ErrorMessage = "O tamanho permitido desse campo é de 2 a 50 caracteres")]
         public string Sobrenome { get; set; }
 
-        [EmailAddress(ErrorMessage = "Entre um email válido")]
+        [EmailAddress(ErrorMessage = "Insira um email válido")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 

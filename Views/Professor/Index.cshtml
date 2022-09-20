@@ -29,6 +29,10 @@
 <table class="table">
     <thead>
         <tr>
+            `
+            <th>
+                @Html.DisplayNameFor(model => model.Professores.First().ProfessorId)
+            </th>
             <th>
                 <a asp-action="Index"
                    asp-route-ordem="@Model.OrdemNome"
@@ -42,6 +46,12 @@
                    asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Sobrenome)</a>
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Professores.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Professores.First().DataContratacao)
+            </th>
+            <th>
                 Turmas
             </th>
             <th></th>
@@ -52,10 +62,19 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.ProfessorId)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Sobrenome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataContratacao)
                 </td>
                 <td>
                     @item.Turmas.Count

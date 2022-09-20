@@ -82,7 +82,7 @@ namespace Curso_Idiomas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,Sobrenome")] Professor professor)
+        public async Task<IActionResult> Create([Bind("DataContratacao,Nome,Sobrenome,Email")] Professor professor)
         {
             if (ModelState.IsValid)
             {
@@ -121,7 +121,7 @@ namespace Curso_Idiomas.Controllers
 
             var professorAtualizando = await _context.Professores.FirstOrDefaultAsync(a => a.ProfessorId == id);
 
-            if (await TryUpdateModelAsync<Professor>(professorAtualizando, "", p => p.Nome, p => p.Sobrenome))
+            if (await TryUpdateModelAsync<Professor>(professorAtualizando, "", p => p.Email, p => p.Nome, p => p.Sobrenome, p => p.DataContratacao))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
