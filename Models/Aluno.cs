@@ -19,11 +19,12 @@ namespace Curso_Idiomas.Models
 
         [EmailAddress(ErrorMessage = "Insira um email válido")]
         [DataType(DataType.EmailAddress)]
+        [DisplayFormat(NullDisplayText = "- sem email -")]
         public string Email { get; set; }
 
         //ErrorMessage nao funciona    [Required(ErrorMessage = "Este campo é obrigatório")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data de Matrícula")]
         public DateTime DataMatricula { get; set; }
 
