@@ -39,10 +39,12 @@
         <dd>
             <table class="table">
                 <tr>
-                    <th>Disciplina</th>
-                    <th>Horário</th>
-                    <th>Professor</th>
-                    <th>Semestre</th>
+                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().Turma.Disciplina)</th>
+                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().Turma.Horario)</th>
+                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().Turma.Professor)</th>
+                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().Turma.Semestre)</th>
+                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().NotaFinal)</th>
+                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().DataInscricao)</th>
                     <th></th>
                 </tr>
                 @foreach (var inscricao in Model.Inscricoes)
@@ -59,6 +61,12 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => inscricao.Turma.Semestre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => inscricao.NotaFinal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => inscricao.DataInscricao)
                         </td>
                         <td>
                             <a asp-controller="Turma" asp-action="Details" asp-route-id="@inscricao.Turma.TurmaId">Ver turma</a>
