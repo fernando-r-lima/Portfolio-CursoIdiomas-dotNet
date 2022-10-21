@@ -6,7 +6,6 @@ namespace Curso_Idiomas.Models
 {
     public class Inscricao
     {
-        public int InscricaoId { get; set; }
         public int AlunoId { get; set; }
         public int TurmaId { get; set; }
 

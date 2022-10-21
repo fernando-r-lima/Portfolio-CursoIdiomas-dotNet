@@ -22,6 +22,8 @@ namespace Curso_Idiomas.Data
             modelBuilder.Entity<Inscricao>().ToTable("Inscricao");
             modelBuilder.Entity<Professor>().ToTable("Professor");
             modelBuilder.Entity<Disciplina>().ToTable("Disciplina");
+
+            modelBuilder.Entity<Inscricao>().HasKey(i => new {i.AlunoId, i.TurmaId});
         }
 
     }

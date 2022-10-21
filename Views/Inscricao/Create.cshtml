@@ -1,0 +1,77 @@
+﻿@model Curso_Idiomas.Models.ViewModels.InscricaoViewModel
+
+@{
+    ViewData["Title"] = "Inscrever em turma";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Aluno.AlunoId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Aluno.AlunoId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Aluno.NomeCompleto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Aluno.NomeCompleto)
+        </dd>
+        <dt class="col-sm-2">
+            Todas as turmas
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Turmas.First().Disciplina)</th>
+                    <th>@Html.DisplayNameFor(model => model.Turmas.First().Horario)</th>
+                    <th>@Html.DisplayNameFor(model => model.Turmas.First().Professor)</th>
+                    <th>@Html.DisplayNameFor(model => model.Turmas.First().Semestre)</th>
+                    <th></th>
+                </tr>
+                @foreach (var turma in Model.Turmas)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Disciplina.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Horario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Professor.NomeCompleto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => turma.Semestre)
+                        </td>
+                        <td>
+                            <form method="post" asp-action="Create">
+
+                                <input type="hidden" name="alunoId" value="@Model.Aluno.AlunoId" />
+                                <input type="hidden" name="turmaId" value="@turma.TurmaId" />
+
+                                @if (Model.TurmasInscritas.Contains(turma.TurmaId))
+                                {
+                                    <p>Inscrito</p>
+                                }
+                                else
+                                {
+                                    <input type="submit" value="Inscrever" />
+                                }
+
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="Aluno" asp-action="Details" asp-route-id="@Model.Aluno.AlunoId">Voltar</a>
+</div>
