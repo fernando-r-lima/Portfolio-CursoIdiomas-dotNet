@@ -1,7 +1,7 @@
 ﻿@model Curso_Idiomas.Models.ViewModels.InscricaoViewModel
 
 @{
-    ViewData["Title"] = "Inscrever em turma";
+    ViewData["Title"] = "Gerenciar inscrições";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.Aluno.NomeCompleto)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Aluno.NomeCompleto)
+            <h4>@Html.DisplayFor(model => model.Aluno.NomeCompleto)</h4>
         </dd>
         <dt class="col-sm-2">
             Todas as turmas
@@ -56,10 +56,12 @@
 
                                 @if (Model.TurmasInscritas.Contains(turma.TurmaId))
                                 {
-                                    <p>Inscrito</p>
+                                    <input type="hidden" name="operacao" value="excluir" />
+                                    <input type="submit" value="Cancelar inscrição">
                                 }
                                 else
                                 {
+                                    <input type="hidden" name="operacao" value="criar" />
                                     <input type="submit" value="Inscrever" />
                                 }
 

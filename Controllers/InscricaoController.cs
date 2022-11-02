@@ -37,19 +37,25 @@ namespace Curso_Idiomas.Controllers
             viewModel.Aluno = aluno;
             viewModel.Turmas = turmas;
             viewModel.TurmasInscritas = turmasInscritas;
-            
+
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AlunoId,TurmaId")] Inscricao inscricao)
+        public async Task<IActionResult> Create([Bind("AlunoId,TurmaId")] Inscricao inscricao, string operacao)
         {
-            if (ModelState.IsValid)
+            switch (operacao)
             {
-                _context.Add(inscricao);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Create", new { alunoId = inscricao.AlunoId });
+                case "criar":
+                    _context.Add(inscricao);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Create", new { alunoId = inscricao.AlunoId });
+
+                case "excluir":
+                    _context.Inscricoes.Remove(inscricao);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Create", new { alunoId = inscricao.AlunoId });
             }
             return View(inscricao);
         }
