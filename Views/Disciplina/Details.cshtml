@@ -8,18 +8,20 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt class="col-sm-2">
+    <dl>
+        <dt>
             @Html.DisplayNameFor(model => model.Turmas)
         </dt>
         <dd>
-            <table class="table">
-                <tr>
-                    <th>Horário</th>
-                    <th>Professor</th>
-                    <th>Semestre</th>
-                    <th></th>
-                </tr>
+            <table class="table table-secondary table-hover">
+                <thead class="table-active">
+                    <tr>
+                        <th>Horário</th>
+                        <th>Professor</th>
+                        <th>Semestre</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 @foreach (var turma in Model.Turmas)
                 {
                     <tr>
@@ -33,14 +35,14 @@
                             @Html.DisplayFor(modelItem => turma.Semestre)
                         </td>
                         <td>
-                            <a asp-controller="Turma" asp-action="Details" asp-route-id="@turma.TurmaId">Ver turma</a>
+                            <a class="btn btn-sm btn-outline-info mx-1" asp-controller="Turma" asp-action="Details" asp-route-id="@turma.TurmaId">Ver turma</a>
                         </td>
                     </tr>
                 }
             </table>
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.DisciplinaId" class="btn btn-default">Editar</a>
-    <a asp-action="Index">Voltar</a>
+    <a class="btn btn-secondary mx-2" asp-action="Index">Voltar</a>
 </div>

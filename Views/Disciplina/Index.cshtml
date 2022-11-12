@@ -7,14 +7,14 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Criar nova disciplina</a>
+    <a class="btn btn-primary btn-lg" asp-action="Create">Criar nova disciplina</a>
 </p>
 
 <form>
     <div>
         <p>
             Filtrar:
-            <input type="text" name="conteudoFiltro" value="@Model.ConteudoFiltro" />
+            <input class="mx-1" type="text" name="conteudoFiltro" value="@Model.ConteudoFiltro" />
 
             <input type="submit" value="Buscar" /> |
 
@@ -23,8 +23,8 @@
     </div>
 </form>
 
-<table class="table">
-    <thead>
+<table class="table table-secondary table-hover">
+    <thead class="table-active">
         <tr>
             <th>
                 <a asp-action="Index" 
@@ -45,12 +45,11 @@
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    @item.Turmas.Count
+                    <a class="btn btn-sm btn-outline-info px-4" asp-action="Details" asp-route-id="@item.DisciplinaId">@item.Turmas.Count</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.DisciplinaId">Detalhes</a> |
-                    <a asp-action="Edit" asp-route-id="@item.DisciplinaId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.DisciplinaId">Delete</a>
+                    <a class="btn btn-sm btn-outline-info mx-1" asp-action="Edit" asp-route-id="@item.DisciplinaId">Editar</a>
+                    <a class="btn btn-sm btn-outline-danger mx-1" asp-action="Delete" asp-route-id="@item.DisciplinaId">Excluir</a>
                 </td>
             </tr>
         }

@@ -14,7 +14,7 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Disciplina.Nome)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 h4 text-danger">
             @Html.DisplayFor(model => model.Disciplina.Nome) | @Html.DisplayFor(model => model.Horario)
         </dd>
         <dt class="col-sm-2">
@@ -32,11 +32,13 @@
         <dt class="col-sm-2">
         </dt>
         <dd>
-            <table class="table">
+            <table class="table table-secondary table-hover">
+                <thead class="table-active">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Inscricoes)</th>
                     <th></th>
                 </tr>
+                </thead>
                 @foreach (var inscricao in Model.Inscricoes)
                 {
                     <tr>
@@ -44,7 +46,7 @@
                             @Html.DisplayFor(modelItem => inscricao.Aluno.NomeCompleto)
                         </td>
                         <td>
-                            <a asp-controller="Aluno" asp-action="Details" asp-route-id="@inscricao.Aluno.AlunoId">Ver aluno</a>
+                            <a asp-controller="Aluno" asp-action="Details" asp-route-id="@inscricao.Aluno.AlunoId" class="btn btn-sm btn-outline-info mx-1">Ver aluno</a>
                         </td>
                     </tr>
                 }
@@ -54,7 +56,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="TurmaId" />
-        <input type="submit" value="Deletar" class="btn btn-danger" /> |
-        <a asp-action="Index">Voltar</a>
+        <input type="submit" value="Excluir turma" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-primary mx-4">Voltar</a>
     </form>
 </div>

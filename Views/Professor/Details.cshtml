@@ -1,49 +1,57 @@
 ﻿@model Professor
 
 @{
-    ViewData["Title"] = "Detalhes do professor";
+    ViewData["Title"] = "Turmas e detalhes do professor";
 }
 
 <h2>@ViewData["Title"]</h2>
 
+<dl class="row">
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.ProfessorId)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.ProfessorId)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.NomeCompleto)
+    </dt>
+    <dd class="col-10 h4">
+        @Html.DisplayFor(model => model.NomeCompleto)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.Email)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.Email)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.DataContratacao)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.DataContratacao)
+    </dd>
+</dl>
+
 <div>
-    <hr />
-    <dl class="dl-horizontal">
+    <a class="btn btn-sm btn-outline-primary my-3" asp-action="Edit" asp-route-id="@Model.ProfessorId" class="btn btn-default">Editar professor</a>
+</div>
+
+<div>
+    <dl>
         <dt>
-            @Html.DisplayNameFor(model => model.ProfessorId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProfessorId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeCompleto)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NomeCompleto)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataContratacao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataContratacao)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Turmas)
         </dt>
         <dd>
-            <table class="table">
-                <tr>
-                    <th>Disciplina</th>
-                    <th>Horário</th>
-                    <th>Semestre</th>
-                    <th></th>
-                </tr>
+            <table class="table table-secondary table-hover">
+                <thead class="table-active">
+                    <tr>
+                        <th>Disciplina</th>
+                        <th>Horário</th>
+                        <th>Semestre</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 @foreach (var turma in Model.Turmas)
                 {
                     <tr>
@@ -57,15 +65,16 @@
                             @Html.DisplayFor(modelItem => turma.Semestre)
                         </td>
                         <td>
-                            <a asp-controller="Turma" asp-action="Details" asp-route-id="@turma.TurmaId">Ver turma</a>
+                            <a class="btn btn-sm btn-outline-info mx-1" asp-controller="Turma" asp-action="Details" asp-route-id="@turma.TurmaId">Ver turma</a>
                         </td>
 
                     </tr>
                 }
             </table>
+        </dd>
     </dl>
 </div>
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ProfessorId" class="btn btn-default">Editar</a>
-    <a asp-action="Index">Voltar</a>
+    <a class="btn btn-secondary mx-2" asp-action="Index">Voltar</a>
 </div>

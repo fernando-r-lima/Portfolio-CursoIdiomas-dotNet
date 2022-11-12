@@ -8,34 +8,45 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <dl class="row">
+        <dt class="col-2">
             @Html.DisplayNameFor(model => model.Aluno.AlunoId)
         </dt>
-        <dd>
+        <dd class="col-10">
             @Html.DisplayFor(model => model.Aluno.AlunoId)
         </dd>
-        <dt>
+        <dt class="col-2">
             @Html.DisplayNameFor(model => model.Aluno.NomeCompleto)
         </dt>
-        <dd>
+        <dd class="col-10">
             <h4>@Html.DisplayFor(model => model.Aluno.NomeCompleto)</h4>
         </dd>
-        <dt class="col-sm-2">
+    </dl>
+    <dl>
+        <dt class="h5">
             Todas as turmas
         </dt>
         <dd>
-            <table class="table">
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Turmas.First().Disciplina)</th>
-                    <th>@Html.DisplayNameFor(model => model.Turmas.First().Horario)</th>
-                    <th>@Html.DisplayNameFor(model => model.Turmas.First().Professor)</th>
-                    <th>@Html.DisplayNameFor(model => model.Turmas.First().Semestre)</th>
-                    <th></th>
-                </tr>
+            <table class="table table-secondary table-hover">
+                <thead class="table-active">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Turmas.First().Disciplina)</th>
+                        <th>@Html.DisplayNameFor(model => model.Turmas.First().Horario)</th>
+                        <th>@Html.DisplayNameFor(model => model.Turmas.First().Professor)</th>
+                        <th>@Html.DisplayNameFor(model => model.Turmas.First().Semestre)</th>
+                        <th>@Html.DisplayNameFor(model => model.Turmas.First().Inscricoes.First().NotaFinal)</th>
+                        <th>@Html.DisplayNameFor(model => model.Turmas.First().Inscricoes.First().DataInscricao)</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 @foreach (var turma in Model.Turmas)
                 {
-                    <tr>
+                    string rowClass = "";
+                    @if (Model.TurmasInscritas.Contains(turma.TurmaId))
+                    {
+                        rowClass = "table-info";
+                    }
+                    <tr class="@rowClass">
                         <td>
                             @Html.DisplayFor(modelItem => turma.Disciplina.Nome)
                         </td>
@@ -49,6 +60,10 @@
                             @Html.DisplayFor(modelItem => turma.Semestre)
                         </td>
                         <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
                             <form method="post" asp-action="Create">
 
                                 <input type="hidden" name="alunoId" value="@Model.Aluno.AlunoId" />
@@ -57,12 +72,12 @@
                                 @if (Model.TurmasInscritas.Contains(turma.TurmaId))
                                 {
                                     <input type="hidden" name="operacao" value="excluir" />
-                                    <input type="submit" value="Cancelar inscrição">
+                                    <input class="btn btn-danger" type="submit" value="Cancelar inscrição">
                                 }
                                 else
                                 {
                                     <input type="hidden" name="operacao" value="criar" />
-                                    <input type="submit" value="Inscrever" />
+                                    <input class="btn btn-primary" type="submit" value="Inscrever" />
                                 }
 
                             </form>
@@ -75,5 +90,5 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="Aluno" asp-action="Details" asp-route-id="@Model.Aluno.AlunoId">Voltar</a>
+    <a class="btn btn-secondary mx-2" asp-controller="Aluno" asp-action="Details" asp-route-id="@Model.Aluno.AlunoId">Voltar</a>
 </div>

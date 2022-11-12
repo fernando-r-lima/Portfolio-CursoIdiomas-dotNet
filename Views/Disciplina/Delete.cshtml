@@ -14,20 +14,22 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 h4 text-danger">
             @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class="col-sm-2">
             Turmas
         </dt>
         <dd>
-            <table class="table">
+            <table class="table table-secondary table-hover">
+                <thead class="table-active">
                 <tr>
                     <th>Professor</th>
                     <th>Horário</th>
                     <th>Semestre</th>
                     <th></th>
                 </tr>
+                </thead>
                 @foreach (var turma in Model.Turmas)
                 {
                     <tr>
@@ -40,6 +42,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => turma.Semestre)
                         </td>
+                        <td>
+                            <a asp-controller="Turma" asp-action="Details" asp-route-id="@turma.TurmaId" class="btn btn-sm btn-outline-info mx-1">Ver turma</a>
+                        </td>
                     </tr>
                 }
             </table>
@@ -48,7 +53,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="DisciplinaId" />
-        <input type="submit" value="Deletar" class="btn btn-danger" /> |
-        <a asp-action="Index">Voltar</a>
+        <input type="submit" value="Excluir disciplina" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-primary mx-4">Voltar</a>
     </form>
 </div>

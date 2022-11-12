@@ -6,31 +6,36 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<dl class="row">
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.Professor)
+    </dt>
+    <dd class="col-10 h4">
+        @Html.DisplayFor(model => model.Professor.NomeCompleto)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.Semestre)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.Semestre)
+    </dd>
+</dl>
+
 <div>
-    <hr />
-    <dl class="dl-horizontal">
+    <dl>
         <dt>
-            @Html.DisplayNameFor(model => model.Professor)
+            Alunos
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Professor.NomeCompleto)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Semestre)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Semestre)
-        </dd>
-        <dt class="col-sm-2">
-        </dt>
-        <dd>
-            <table class="table">
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().Aluno.NomeCompleto)</th>
-                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().NotaFinal)</th>
-                    <th>@Html.DisplayNameFor(model => model.Inscricoes.First().DataInscricao)</th>
-                    <th></th>
-                </tr>
+            <table class="table table-secondary table-hover">
+                <thead class="table-active">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Inscricoes.First().Aluno.NomeCompleto)</th>
+                        <th>@Html.DisplayNameFor(model => model.Inscricoes.First().NotaFinal)</th>
+                        <th>@Html.DisplayNameFor(model => model.Inscricoes.First().DataInscricao)</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 @foreach (var inscricao in Model.Inscricoes)
                 {
                     <tr>
@@ -44,7 +49,7 @@
                             @Html.DisplayFor(modelItem => inscricao.DataInscricao)
                         </td>
                         <td>
-                            <a asp-controller="Aluno" asp-action="Details" asp-route-id="@inscricao.Aluno.AlunoId">Ver aluno</a>
+                            <a class="btn btn-sm btn-outline-info mx-1" asp-controller="Aluno" asp-action="Details" asp-route-id="@inscricao.Aluno.AlunoId">Ver aluno</a>
                         </td>
                     </tr>
                 }
@@ -53,6 +58,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TurmaId" class="btn btn-default">Editar</a>
-    <a asp-action="Index">Lista de turmas</a>
+    <a class="btn btn-secondary mx-2" asp-action="Index">Lista de turmas</a>
 </div>

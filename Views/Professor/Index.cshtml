@@ -7,16 +7,16 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Criar novo professor</a>
+    <a class="btn btn-primary btn-lg" asp-action="Create">Criar novo professor</a>
 </p>
 
 <form asp-action="Index" method="get">
     <div>
         <p>
             Filtrar por
-            <select name="filtroEscolhido" asp-for="FiltroEscolhido" asp-items="Model.OpcoesFiltro"></select>:
+            <select class="mx-1" name="filtroEscolhido" asp-for="FiltroEscolhido" asp-items="Model.OpcoesFiltro"></select>:
 
-            <input type="text" name="conteudoFiltro" value="@Model.ConteudoFiltro" />
+            <input class="mx-1" type="text" name="conteudoFiltro" value="@Model.ConteudoFiltro" />
 
             <input type="submit" value="Buscar" /> |
 
@@ -26,10 +26,9 @@
 
 </form>
 
-<table class="table">
-    <thead>
+<table class="table table-secondary table-hover">
+    <thead class="table-active">
         <tr>
-            `
             <th>
                 @Html.DisplayNameFor(model => model.Professores.First().ProfessorId)
             </th>
@@ -77,12 +76,11 @@
                     @Html.DisplayFor(modelItem => item.DataContratacao)
                 </td>
                 <td>
-                    @item.Turmas.Count
+                    <a class="btn btn-sm btn-outline-info px-4" asp-action="Details" asp-route-id="@item.ProfessorId">@item.Turmas.Count</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ProfessorId">Detalhes</a> |
-                    <a asp-action="Edit" asp-route-id="@item.ProfessorId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProfessorId">Delete</a>
+                    <a class="btn btn-sm btn-outline-info mx-1" asp-action="Edit" asp-route-id="@item.ProfessorId">Editar</a>
+                    <a class="btn btn-sm btn-outline-danger mx-1" asp-action="Delete" asp-route-id="@item.ProfessorId">Excluir</a>
                 </td>
             </tr>
         }
