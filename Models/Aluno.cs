@@ -7,6 +7,7 @@ namespace Curso_Idiomas.Models
     public class Aluno
     {
         [Display(Name = "Matrícula")]
+        [DisplayFormat(DataFormatString = "{0:0000}")]
         public int AlunoId { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]

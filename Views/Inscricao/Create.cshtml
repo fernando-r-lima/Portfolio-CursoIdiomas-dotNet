@@ -42,10 +42,11 @@
                 @foreach (var turma in Model.Turmas)
                 {
                     string rowClass = "";
-                    @if (Model.TurmasInscritas.Contains(turma.TurmaId))
+                    @if (Model.TurmasInscritas.Contains(turma))
                     {
                         rowClass = "table-info";
                     }
+
                     <tr class="@rowClass">
                         <td>
                             @Html.DisplayFor(modelItem => turma.Disciplina.Nome)
@@ -59,17 +60,27 @@
                         <td>
                             @Html.DisplayFor(modelItem => turma.Semestre)
                         </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
+                        @if (Model.TurmasInscritas.Contains(turma))
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => turma.Inscricoes.First(a => a.AlunoId == Model.Aluno.AlunoId).NotaFinal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => turma.Inscricoes.First(a => a.AlunoId == Model.Aluno.AlunoId).DataInscricao)
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                            <td></td>
+                        }
                         <td>
                             <form method="post" asp-action="Create">
 
                                 <input type="hidden" name="alunoId" value="@Model.Aluno.AlunoId" />
                                 <input type="hidden" name="turmaId" value="@turma.TurmaId" />
 
-                                @if (Model.TurmasInscritas.Contains(turma.TurmaId))
+                                @if (Model.TurmasInscritas.Contains(turma))
                                 {
                                     <input type="hidden" name="operacao" value="excluir" />
                                     <input class="btn btn-danger" type="submit" value="Cancelar inscrição">

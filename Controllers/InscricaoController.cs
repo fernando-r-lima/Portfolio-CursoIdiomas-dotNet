@@ -3,6 +3,7 @@ using Curso_Idiomas.Models;
 using Curso_Idiomas.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,17 +21,17 @@ namespace Curso_Idiomas.Controllers
         public async Task<IActionResult> Create(int alunoId)
         {
             Aluno aluno = await _context.Alunos
-                .Include(a => a.Inscricoes)
+                .Include(a => a.Inscricoes).ThenInclude(i => i.Turma)
                 .FirstOrDefaultAsync(a => a.AlunoId == alunoId);
 
             IQueryable<Turma> turmas = _context.Turmas
                 .Include(t => t.Professor)
                 .Include(t => t.Disciplina);
 
-            List<int> turmasInscritas = new List<int>();
+            List<Turma> turmasInscritas = new List<Turma>();
             foreach (Inscricao i in aluno.Inscricoes)
             {
-                turmasInscritas.Add(i.TurmaId);
+                turmasInscritas.Add(i.Turma);
             }
 
             var viewModel = new InscricaoViewModel();
@@ -48,6 +49,7 @@ namespace Curso_Idiomas.Controllers
             switch (operacao)
             {
                 case "criar":
+                    inscricao.DataInscricao = DateTime.Now;
                     _context.Add(inscricao);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Create", new { alunoId = inscricao.AlunoId });
