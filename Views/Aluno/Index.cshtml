@@ -31,27 +31,45 @@
     <thead class="table-active">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Alunos.First().AlunoId)
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemMatricula">
+                    @Html.DisplayNameFor(model => model.Alunos.First().AlunoId)
+                </a>
             </th>
             <th>
                 <a asp-action="Index"
                    asp-route-ordem="@Model.OrdemNome"
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Alunos.First().Nome)</a>
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Alunos.First().Nome)
+                </a>
             </th>
             <th>
                 <a asp-action="Index"
                    asp-route-ordem="@Model.OrdemSobrenome"
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Alunos.First().Sobrenome)</a>
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Alunos.First().Sobrenome)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Alunos.First().Email)
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemEmail">
+                    @Html.DisplayNameFor(model => model.Alunos.First().Email)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Alunos.First().DataMatricula)
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemDataMatricula">
+                    @Html.DisplayNameFor(model => model.Alunos.First().DataMatricula)
+                </a>
             </th>
-            <th>Turmas</th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemTurmas">
+                    Turmas
+                </a>
+            </th>
             <th></th>
         </tr>
     </thead>

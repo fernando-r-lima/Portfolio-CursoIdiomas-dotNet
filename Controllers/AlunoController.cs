@@ -40,6 +40,14 @@ namespace Curso_Idiomas.Controllers
                         viewModel.FiltroEscolhido = "sobrenome";
                         alunos = alunos.Where(a => a.Sobrenome.Contains(conteudoFiltro));
                         break;
+                    case "email":
+                        viewModel.FiltroEscolhido = "email";
+                        alunos = alunos.Where(a => a.Email.Contains(conteudoFiltro));
+                        break;
+                    case "dataMatricula":
+                        viewModel.FiltroEscolhido = "dataMatricula";
+                        alunos = alunos.Where(a => a.DataMatricula.ToString().Contains(conteudoFiltro));
+                        break;
                 }
             }
 
@@ -54,6 +62,31 @@ namespace Curso_Idiomas.Controllers
                 case "sobrenome_desc":
                     alunos = alunos.OrderByDescending(a => a.Sobrenome).ThenBy(a => a.Nome);
                     break;
+                case "matricula":
+                    alunos = alunos.OrderBy(a => a.AlunoId);
+                    break;
+                case "matricula_desc":
+                    alunos = alunos.OrderByDescending(a => a.AlunoId);
+                    break;
+                case "email":
+                    alunos = alunos.OrderBy(a => a.Email).ThenBy(a => a.Nome).ThenBy(a => a.Sobrenome);
+                    break;
+                case "email_desc":
+                    alunos = alunos.OrderByDescending(a => a.Email).ThenBy(a => a.Nome).ThenBy(a => a.Sobrenome);
+                    break;
+                case "dataMatricula":
+                    alunos = alunos.OrderBy(a => a.DataMatricula).ThenBy(a => a.Nome).ThenBy(a => a.Sobrenome);
+                    break;
+                case "dataMatricula_desc":
+                    alunos = alunos.OrderByDescending(a => a.DataMatricula).ThenBy(a => a.Nome).ThenBy(a => a.Sobrenome);
+                    break;
+                case "turmas":
+                    alunos = alunos.OrderBy(a => a.Inscricoes.Count).ThenBy(a => a.Nome).ThenBy(a => a.Sobrenome);
+                    break;
+                case "turmas_desc":
+                    alunos = alunos.OrderByDescending(a => a.Inscricoes.Count).ThenBy(a => a.Nome).ThenBy(a => a.Sobrenome);
+                    break;
+
                 default:
                     alunos = alunos.OrderBy(a => a.Nome).ThenBy(a => a.Sobrenome);
                     break;
@@ -65,6 +98,10 @@ namespace Curso_Idiomas.Controllers
 
             viewModel.OrdemNome = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
             viewModel.OrdemSobrenome = ordem == "sobrenome" ? "sobrenome_desc" : "sobrenome";
+            viewModel.OrdemMatricula = ordem == "matricula" ? "matricula_desc" : "matricula";
+            viewModel.OrdemEmail = ordem == "email" ? "email_desc" : "email";
+            viewModel.OrdemDataMatricula = ordem == "dataMatricula" ? "dataMatricula_desc" : "dataMatricula";
+            viewModel.OrdemTurmas = ordem == "turmas" ? "turmas_desc" : "turmas";
 
             return View(viewModel);
         }
