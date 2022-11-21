@@ -7,6 +7,7 @@ namespace Curso_Idiomas.Models.ViewModels
     {
         public IEnumerable<Disciplina> Disciplinas { get; set; }
         public string OrdemNome { get; set; }
+        public string OrdemTurmas { get; set; }
         public string ConteudoFiltro { get; set; }
     }
 }

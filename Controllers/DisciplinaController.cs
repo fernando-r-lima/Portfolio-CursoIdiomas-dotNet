@@ -30,6 +30,13 @@ namespace Curso_Idiomas.Controllers
                 case "nome_desc":
                     disciplinas = disciplinas.OrderByDescending(d => d.Nome);
                     break;
+                case "turmas":
+                    disciplinas = disciplinas.OrderBy(d => d.Turmas.Count).ThenBy(d => d.Nome);
+                    break;
+                case "turmas_desc":
+                    disciplinas = disciplinas.OrderByDescending(d => d.Turmas.Count).ThenBy(d => d.Nome);
+                    break;
+
                 default:
                     disciplinas = disciplinas.OrderBy(d => d.Nome);
                     break;
@@ -40,6 +47,7 @@ namespace Curso_Idiomas.Controllers
             viewModel.ConteudoFiltro = conteudoFiltro;
 
             viewModel.OrdemNome = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
+            viewModel.OrdemTurmas = ordem == "turmas" ? "turmas_desc" : "turmas";
 
             return View(viewModel);
         }
