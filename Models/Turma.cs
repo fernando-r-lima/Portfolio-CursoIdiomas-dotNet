@@ -5,6 +5,8 @@ namespace Curso_Idiomas.Models
 {
     public class Turma
     {
+        [Display(Name = "Código")]
+        [DisplayFormat(DataFormatString = "{0:000}")]
         public int TurmaId { get; set; }
 
         [Display(Name = "Horário")]

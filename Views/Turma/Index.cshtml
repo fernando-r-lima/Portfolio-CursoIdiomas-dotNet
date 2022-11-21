@@ -30,27 +30,52 @@
         <tr>
             <th>
                 <a asp-action="Index"
-                   asp-route-ordem="@Model.OrdemDisciplina"
+                   asp-route-ordem="@Model.OrdemCodigo"
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Turmas.First().Disciplina)</a>
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Turmas.First().TurmaId)
+                </a>
+
             </th>
             <th>
                 <a asp-action="Index"
-                   asp-route-ordem="@Model.OrdemHorario"
+                   asp-route-ordem="@Model.OrdemDisciplina"
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Turmas.First().Horario)</a>
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Turmas.First().Disciplina)
+                </a>
             </th>
             <th>
                 <a asp-action="Index"
                    asp-route-ordem="@Model.OrdemProfessor"
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Turmas.First().Professor)</a>
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Turmas.First().Professor)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Turmas.First().Semestre)
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemHorario"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Turmas.First().Horario)
+                </a>
             </th>
             <th>
-                Alunos
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemSemestre"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Turmas.First().Semestre)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemAlunos"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    Alunos
+                </a>
             </th>
             <th></th>
         </tr>
@@ -60,13 +85,16 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.TurmaId)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Disciplina.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Horario)
+                    @Html.DisplayFor(modelItem => item.Professor.NomeCompleto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Professor.NomeCompleto)
+                    @Html.DisplayFor(modelItem => item.Horario)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Semestre)

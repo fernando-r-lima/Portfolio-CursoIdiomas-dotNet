@@ -44,13 +44,23 @@ namespace Curso_Idiomas.Controllers
                         turmas = turmas.Where(t => t.Professor.Nome.Contains(conteudoFiltro)
                                                 || t.Professor.Sobrenome.Contains(conteudoFiltro));
                         break;
+                    case "semestre":
+                        viewModel.FiltroEscolhido = "semestre";
+                        turmas = turmas.Where(t => t.Semestre.Contains(conteudoFiltro));
+                        break;
                 }
             }
 
             switch (ordem)
             {
                 case "disciplina_desc":
-                    turmas = turmas.OrderByDescending(t => t.Disciplina.Nome).ThenBy(t => t.Horario).ThenBy(t => t.Professor.Nome);
+                    turmas = turmas.OrderByDescending(t => t.Disciplina.Nome).ThenBy(t => t.Professor.Nome).ThenBy(t => t.Horario);
+                    break;
+                case "codigo":
+                    turmas = turmas.OrderBy(t => t.TurmaId);
+                    break;
+                case "codigo_desc":
+                    turmas = turmas.OrderByDescending(t => t.TurmaId);
                     break;
                 case "horario":
                     turmas = turmas.OrderBy(t => t.Horario).ThenBy(t => t.Disciplina.Nome).ThenBy(t => t.Professor.Nome);
@@ -64,9 +74,23 @@ namespace Curso_Idiomas.Controllers
                 case "professor_desc":
                     turmas = turmas.OrderByDescending(t => t.Professor.Nome).ThenBy(t => t.Disciplina.Nome).ThenBy(t => t.Horario);
                     break;
-                default:
-                    turmas = turmas.OrderBy(t => t.Disciplina.Nome).ThenBy(t => t.Horario).ThenBy(t => t.Professor.Nome);
+                case "semestre":
+                    turmas = turmas.OrderBy(t => t.Semestre).ThenBy(t => t.Disciplina.Nome).ThenBy(t => t.Professor.Nome);
                     break;
+                case "semestre_desc":
+                    turmas = turmas.OrderByDescending(t => t.Semestre).ThenBy(t => t.Disciplina.Nome).ThenBy(t => t.Professor.Nome);
+                    break;
+                case "alunos":
+                    turmas = turmas.OrderBy(t => t.Inscricoes.Count).ThenBy(t => t.Disciplina.Nome).ThenBy(t => t.Professor.Nome);
+                    break;
+                case "alunos_desc":
+                    turmas = turmas.OrderByDescending(t => t.Inscricoes.Count).ThenBy(t => t.Disciplina.Nome).ThenBy(t => t.Professor.Nome);
+                    break;
+
+                default:
+                    turmas = turmas.OrderBy(t => t.Disciplina.Nome).ThenBy(t => t.Professor.Nome).ThenBy(t => t.Horario);
+                    break;
+
             }
 
             viewModel.Turmas = await turmas.ToListAsync();
@@ -76,6 +100,9 @@ namespace Curso_Idiomas.Controllers
             viewModel.OrdemDisciplina = String.IsNullOrEmpty(ordem) ? "disciplina_desc" : "";
             viewModel.OrdemHorario = ordem == "horario" ? "horario_desc" : "horario";
             viewModel.OrdemProfessor = ordem == "professor" ? "professor_desc" : "professor";
+            viewModel.OrdemCodigo = ordem == "codigo" ? "professor_desc" : "codigo";
+            viewModel.OrdemSemestre = ordem == "semestre" ? "semestre_desc" : "semestre";
+            viewModel.OrdemAlunos = ordem == "alunos" ? "alunos_desc" : "alunos";
 
             return View(viewModel);
         }
