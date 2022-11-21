@@ -9,6 +9,11 @@ namespace Curso_Idiomas.Models.ViewModels
 
         public string OrdemNome { get; set; }
         public string OrdemSobrenome { get; set; }
+        public string OrdemMatricula { get; set; }
+        public string OrdemEmail { get; set; }
+        public string OrdemDataContratacao { get; set; }
+        public string OrdemTurmas { get; set; }
+
 
         public string ConteudoFiltro { get; set; }
         public string FiltroEscolhido { get; set; }
@@ -16,6 +21,8 @@ namespace Curso_Idiomas.Models.ViewModels
         {
             new SelectListItem { Value = "nome", Text = "Nome" },
             new SelectListItem { Value = "sobrenome", Text = "Sobrenome"},
+            new SelectListItem { Value = "email", Text = "Email"},
+            new SelectListItem { Value = "dataContratacao", Text = "Data de Contratação"},
         };
     }
 }

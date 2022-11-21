@@ -30,28 +30,52 @@
     <thead class="table-active">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Professores.First().ProfessorId)
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemMatricula"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Professores.First().ProfessorId)
+                </a>
             </th>
             <th>
                 <a asp-action="Index"
                    asp-route-ordem="@Model.OrdemNome"
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Nome)</a>
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Professores.First().Nome)
+                </a>
             </th>
             <th>
                 <a asp-action="Index"
                    asp-route-ordem="@Model.OrdemSobrenome"
                    asp-route-filtroEscolhido="@Model.FiltroEscolhido"
-                   asp-route-conteudoFiltro="@Model.ConteudoFiltro"> @Html.DisplayNameFor(model => model.Professores.First().Sobrenome)</a>
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Professores.First().Sobrenome)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Professores.First().Email)
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemEmail"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Professores.First().Email)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Professores.First().DataContratacao)
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemDataContratacao"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    @Html.DisplayNameFor(model => model.Professores.First().DataContratacao)
+                </a>
             </th>
             <th>
-                Turmas
+                <a asp-action="Index"
+                   asp-route-ordem="@Model.OrdemTurmas"
+                   asp-route-filtroEscolhido="@Model.FiltroEscolhido"
+                   asp-route-conteudoFiltro="@Model.ConteudoFiltro">
+                    Turmas
+                </a>
             </th>
             <th></th>
         </tr>
