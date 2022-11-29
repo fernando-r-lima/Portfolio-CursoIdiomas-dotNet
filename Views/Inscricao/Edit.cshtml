@@ -1,0 +1,80 @@
+﻿@model Inscricao
+
+@{
+    ViewData["Title"] = "Editar nota do aluno";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<dl class="row">
+
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.Aluno.NomeCompleto)
+    </dt>
+    <dd class="col-10 h4 text-warning">
+        @Html.DisplayFor(model => model.Aluno.NomeCompleto)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.Aluno.AlunoId)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.Aluno.AlunoId)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.Turma)
+    </dt>
+    <dd class="col-10 h4 text-warning">
+        @Html.DisplayFor(model => model.Turma.Disciplina.Nome)
+        |
+        @Html.DisplayFor(model => model.Turma.Horario)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.DataInscricao)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.DataInscricao)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.Turma.Semestre)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.Turma.Semestre)
+    </dd>
+    <dt class="col-2">
+        @Html.DisplayNameFor(model => model.Turma.Professor)
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.Turma.Professor.NomeCompleto)
+    </dd>
+    <dt class="col-2">
+        Nota Atual
+    </dt>
+    <dd class="col-10 h4 text-warning">
+        @Html.DisplayFor(model => model.NotaFinal)
+    </dd>
+</dl>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            <input type="hidden" asp-for="AlunoId" />
+            <input type="hidden" asp-for="TurmaId" />
+           
+            <div class="form-group">
+                <label asp-for="NotaFinal" class="control-label">Nova nota</label>
+                <input asp-for="NotaFinal" class="form-control" />
+                <span asp-validation-for="NotaFinal" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Turma" asp-action="Details" asp-route-id="@Model.TurmaId">Voltar</a>
+</div>

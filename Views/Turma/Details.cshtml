@@ -49,6 +49,7 @@
                             @Html.DisplayFor(modelItem => inscricao.DataInscricao)
                         </td>
                         <td>
+                            <a class="btn btn-sm btn-outline-warning mx-1" asp-controller="Inscricao" asp-action="Edit" asp-route-alunoId="@inscricao.Aluno.AlunoId" asp-route-turmaId="@inscricao.Turma.TurmaId">Editar nota</a>
                             <a class="btn btn-sm btn-outline-info mx-1" asp-controller="Aluno" asp-action="Details" asp-route-id="@inscricao.Aluno.AlunoId">Ver aluno</a>
                         </td>
                     </tr>

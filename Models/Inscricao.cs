@@ -11,8 +11,8 @@ namespace Curso_Idiomas.Models
 
         [Display(Name = "Nota final")]
         [DisplayFormat(NullDisplayText = "-")]
-        [Range(0,10, ErrorMessage = "Insira um valor entre {1} and {2}.")]
-        public int? NotaFinal { get; set; }
+        [Range(0,10, ErrorMessage = "Insira um valor entre {1} e {2}.")]
+        public float? NotaFinal { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:G}")]

@@ -62,6 +62,54 @@ namespace Curso_Idiomas.Controllers
             return View(inscricao);
         }
 
+        public async Task<IActionResult> Edit(int? alunoId, int? turmaId)
+        {
+            if (alunoId == null || turmaId == null)
+            {
+                return NotFound();
+            }
 
+            var inscricao = await _context.Inscricoes.Include(i => i.Aluno)
+                                                    .Include(i => i.Turma)
+                                                    .ThenInclude(t => t.Professor)
+                                                    .Include(i => i.Turma)
+                                                    .ThenInclude(t => t.Disciplina)
+                                                    .FirstOrDefaultAsync(i => i.AlunoId == alunoId && i.TurmaId == turmaId);
+            if (inscricao == null)
+            {
+                return NotFound();
+            }
+
+            return View(inscricao);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int? alunoId, int? turmaId)
+        {
+            if (alunoId == null || turmaId == null)
+            {
+                return NotFound();
+            }
+
+            var inscricaoAtualizando = await _context.Inscricoes
+                                                    .Include(i => i.Aluno)
+                                                    .Include(i => i.Turma)
+                                                    .ThenInclude(t => t.Professor)
+                                                    .Include(i => i.Turma)
+                                                    .ThenInclude(t => t.Disciplina)
+                                                    .FirstOrDefaultAsync(i => i.AlunoId == alunoId && i.TurmaId == turmaId);
+
+            float? notaAtual = inscricaoAtualizando.NotaFinal;
+
+            if (await TryUpdateModelAsync<Inscricao>(inscricaoAtualizando, "", i => i.NotaFinal))
+            {
+                await _context.SaveChangesAsync();
+                return View(inscricaoAtualizando);
+            }
+
+            inscricaoAtualizando.NotaFinal = notaAtual;
+            return View(inscricaoAtualizando);
+        }
     }
 }
