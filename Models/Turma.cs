@@ -20,7 +20,6 @@ namespace Curso_Idiomas.Models
         public string Semestre { get; set; }
         //exemplo "2022.1"
 
-        //ErrorMessage não funcionou
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public int DisciplinaId { get; set; }
 

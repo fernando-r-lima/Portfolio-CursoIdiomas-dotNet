@@ -23,7 +23,8 @@ namespace Curso_Idiomas.Models
         [DisplayFormat(NullDisplayText = "- sem email -")]
         public string Email { get; set; }
 
-        //ErrorMessage nao funciona    [Required(ErrorMessage = "Este campo é obrigatório")]
+        //
+        [Required(ErrorMessage = "Este campo é obrigatório")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data de Matrícula")]

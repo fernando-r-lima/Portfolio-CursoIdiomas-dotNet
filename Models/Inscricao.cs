@@ -15,7 +15,7 @@ namespace Curso_Idiomas.Models
         public float? NotaFinal { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:G}")]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         [Display(Name = "Data da inscrição")]
         public DateTime DataInscricao { get; set; }
 
